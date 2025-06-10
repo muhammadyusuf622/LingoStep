@@ -1,0 +1,218 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, sans-serif;
+}
+
+body {
+    background: linear-gradient(135deg, #e07204, #330c22);
+    color: #333;
+    margin-top: 6em;
+    height: 100vh;
+}
+
+.navbar {
+    background: linear-gradient(135deg, #ff6a00, #ee0979);
+    position: fixed;
+    top: 0;
+    width: 100%;
+    padding: 15px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    color: white;
+}
+
+.navbar h1 {
+    font-size: 24px;
+}
+
+.nav-links {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+.nav-links a {
+    color: white;
+    text-decoration: none;
+    font-size: 16px;
+}
+
+.nav-links a:hover {
+    text-decoration: underline;
+}
+
+.nav-links select {
+    padding: 8px;
+    border-radius: 4px;
+    border: none;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+.profile-container {
+    max-width: 1200px;
+    margin: 20px auto;
+    padding: 20px;
+    background-color: white;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.profile-header {
+    display: flex;
+    gap: 20px;
+    padding: 20px;
+    border-bottom: 1px solid #eee;
+}
+
+.avatar-section {
+    text-align: center;
+}
+
+.avatar-wrapper {
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    overflow: hidden;
+    border: 3px solid #ee0965;
+    margin-bottom: 10px;
+}
+
+.avatar {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.upload-avatar {
+    /* padding: 8px 16px; */
+    /* color: white; */
+    border: none;
+    /* border-radius: 4px; */
+    cursor: pointer;
+    background-color: white;
+}
+
+.upload-avatar i {
+  font-size: 25px;
+  color: #ff0000;
+  position: absolute;
+  top: 10.2em;
+  left: 10.8em;
+}
+
+
+.user-info h2 {
+    font-size: 24px;
+    margin-bottom: 10px;
+}
+
+.user-info p {
+    font-size: 16px;
+    color: #666;
+    margin-bottom: 8px;
+}
+
+.edit-profile {
+    padding: 8px 16px;
+    margin-right: 10px;
+    background: linear-gradient(135deg, #ff6a00, #ee0979);
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    margin-top: 30px;
+}
+
+.scors {
+  display: flex;
+  justify-content: space-around;
+  margin-top: 50px;
+}
+
+.scors img {
+  width: 150px;
+}
+
+.scors .lesson_level img{
+  width: 120px;
+  margin-top: 5px;
+}
+
+.word_score{
+  display: flex;
+  justify-content: space-around;
+  margin-top: -35px;
+  /* margin-right: 0px; */
+}
+
+.word_score .w3{
+  margin-right: 30px;
+}
+
+.word_score .w2{
+  margin-right: 40px;
+}
+
+.errorImg{
+  color: red;
+}
+
+#logout{
+  background: none;
+  color: white;
+  font-size: 15px;
+  border: 2px solid white;
+  padding: 3px 7px;
+  border-radius: 2px;
+  transition: 0.3s ease;
+  cursor: pointer;
+}
+
+#logout:hover{
+  background-color: #f44336; /* qizg‘ish rang */
+}
+
+#logout:active{
+  background-color: #a20551;
+}
+
+
+
+footer {
+    text-align: center;
+    padding: 10px;
+    background-color: #333;
+    color: white;
+    position: absolute;
+    width: 100%;
+    bottom: -100px;
+}
+
+.lingoStep_title a{
+  color: #fff;
+  text-decoration: none;
+}
+
+@media (max-width: 600px) {
+    .profile-header {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .avatar-wrapper {
+        width: 120px;
+        height: 120px;
+    }
+
+    .user-info h2 {
+        font-size: 20px;
+    }
+
+    .progress-stats {
+        grid-template-columns: 1fr;
+    }
+}

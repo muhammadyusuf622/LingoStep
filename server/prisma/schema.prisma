@@ -1,0 +1,188 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum networks {
+  google
+  facebook
+  github
+  normal
+}
+
+enum Complaint {
+  pending
+  resolved
+  rejected
+}
+
+enum UserRoles {
+  USER
+  ADMIN
+  SUPPER_ADMIN
+}
+
+model User {
+  id              String            @id @default(uuid()) @map("id") @db.Uuid
+  username        String?            @default(uuid()) @unique @db.VarChar(100)
+  email           String            @unique @db.VarChar(50)
+  type            networks
+  password        String?           @db.VarChar(100)
+  createdAt       DateTime          @default(now())
+  role            UserRoles             @default(USER)
+  imgUrl          String?    @default("https://cdn-icons-png.freepik.com/256/18238/18238419.png") @db.VarChar(150)
+  userProgress    UserProgress[]
+  chat            chat[]
+  AdminMessage    AdminMessage[]
+  writeBookTypeng WriteBookTypeng[]
+
+  @@map("users")
+}
+
+model LessonGamer {
+  id              String            @id @default(uuid()) @map("id") @db.Uuid
+  title           String            @db.VarChar(100)
+  description     String
+  level           Int               @default(1)
+  createdAt       DateTime          @default(now())
+  lessonGamerStep LessonGamerStep[]
+
+  @@map("lesson_gamer")
+}
+
+model LessonGamerStep {
+  id             String      @id @default(uuid()) @map("id") @db.Uuid
+  title          String      @db.VarChar(100)
+  content        String?
+  audio_url      String?     @db.VarChar(150)
+  step_order     Int
+  question       String
+  answer         String
+  createdAt      DateTime    @default(now())
+  lesson_gamerId String @db.Uuid
+  lessonGamer    LessonGamer @relation(fields: [lesson_gamerId], references: [id], onDelete: Cascade, onUpdate: NoAction)
+
+  @@map("lesson_gamer_steps")
+}
+
+model Quiz {
+  id           String         @id @default(uuid()) @map("id") @db.Uuid
+  title        String         @db.VarChar(100)
+  level        Int            @default(1)
+  createdAt    DateTime       @default(now())
+  quizQuestion QuizQuestion[]
+
+  @@map("quiz")
+}
+
+model QuizQuestion {
+  id             String   @id @default(uuid()) @map("id") @db.Uuid
+  question_text  String
+  correct_answer String
+  video_url      String?  @db.VarChar(150)
+  audio_url      String?  @db.VarChar(150)
+  quiz_id        String @db.Uuid
+  quiz           Quiz     @relation(fields: [quiz_id], references: [id], onDelete: Cascade, onUpdate: NoAction)
+  createdAt      DateTime @default(now())
+
+  @@map("quiz_questions")
+}
+
+model UserProgress {
+  id           String    @id @default(uuid()) @map("id") @db.Uuid
+  userId       String @db.Uuid
+  user         User      @relation(fields: [userId], references: [id], onDelete: Cascade, onUpdate: NoAction)
+  lesson_level Int       @default(1)
+  quiz_level   Int       @default(1)
+  completed_at DateTime?
+  score        Int?      @default(0)
+  createdAt    DateTime  @default(now())
+
+  @@map("user_progress")
+}
+
+model chat {
+  id        String   @id @default(uuid()) @map("id") @db.Uuid
+  username  String   @db.VarChar(100)
+  user      User     @relation(fields: [username], references: [username], onDelete: Cascade)
+  message   String
+  createdAt DateTime @default(now())
+
+  @@map("chat")
+}
+
+model AdminMessage {
+  id      String    @id @default(uuid()) @map("id") @db.Uuid
+  userId  String @db.Uuid
+  user    User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  message String
+  status  Complaint @default(pending)
+  sent_at DateTime  @default(now())
+
+  @@map("adminMessage")
+}
+
+model TelegramNote {
+  id            String   @id @default(uuid()) @map("id") @db.Uuid
+  chatId        Int
+  username      String   @db.VarChar(100)
+  phone_number  String   @db.VarChar(100)
+  language_code String   @db.VarChar(10)
+  message       String
+  createAt      DateTime @default(now())
+
+  @@map("telegramNote")
+}
+
+model Book {
+  id              String            @id @default(uuid()) @map("id") @db.Uuid
+  name            String            @db.VarChar(100)
+  page            String
+  page_order      Int
+  writeBookTypeng WriteBookTypeng[]
+
+  @@map("book")
+}
+
+model WriteBookTypeng {
+  id               String   @id @default(uuid()) @map("id") @db.Uuid
+  user_id          String   @db.Uuid
+  user             User     @relation(fields: [user_id], references: [id], onDelete: Cascade)
+  book_id          String   @db.Uuid
+  book             Book     @relation(fields: [book_id], references: [id], onDelete: Cascade)
+  saved_page_order Int      @default(1)
+  audio_url        String   @db.VarChar(150)
+  createAt         DateTime @default(now())
+
+  @@map("writeBookTypeng")
+}
+
+model LessonCategory {
+  id     String   @id @default(uuid()) @map("id") @db.Uuid
+  name   String   @unique
+  lesson lesson[]
+
+  @@map("lessonCategory")
+}
+
+model lesson {
+  id          String         @id @default(uuid()) @map("id") @db.Uuid
+  title       String         @db.VarChar(100)
+  description String?
+  videoUrl    String         @db.VarChar(100)
+  categoryId  String         @db.Uuid
+  category    LessonCategory @relation(fields: [categoryId], references: [id], onDelete: Cascade)
+  createAt    DateTime       @default(now())
+
+  @@map("lesson")
+}
