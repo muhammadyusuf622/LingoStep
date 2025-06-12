@@ -2,6 +2,7 @@ import {
   BadRequestException,
   Injectable,
   NotFoundException,
+  OnModuleInit,
 } from '@nestjs/common';
 import { CreateAuthDto } from './dto/create-auth.dto';
 import { PrismaService } from 'src/prisma';
@@ -13,13 +14,18 @@ import { FileUpload, JwtHelper } from 'src/helpers';
 import { Request, Response } from 'express';
 import { isUUID } from 'validator';
 
+
 @Injectable()
-export class AuthService {
+export class AuthService implements OnModuleInit {
   constructor(
     private readonly prisma: PrismaService,
     private readonly jwt: JwtHelper,
     private readonly fileUpload: FileUpload,
   ) {}
+
+  async onModuleInit() {
+    await this.seedFile()
+  }
 
   async findAll() {
     const data = await this.prisma.user.findMany();
@@ -358,5 +364,19 @@ export class AuthService {
     return {
       message: 'success',
     };
+  }
+
+  async seedFile(){
+
+    const admin = await this.prisma.user.findFirst({where: {email: 'yuvsufn@gmail.com'}});
+
+    if(!admin){
+      const hashPassword = await bcrypt.hash(process.env.ADMIN_PASSWORD as string, 10)
+      await this.prisma.user.create({data: {
+        email: 'yuvsufn@gmail.com', type: 'normal',
+        password: hashPassword, username:'muhammad571',
+        role: 'SUPPER_ADMIN',
+        }});
+    }
   }
 }

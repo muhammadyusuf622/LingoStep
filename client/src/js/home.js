@@ -2,6 +2,7 @@ import customAxios from "./axios";
 
 const languageSelect = document.getElementById("language-select");
 const profilImg = document.getElementById('profilImg');
+const chatDiv = document.getElementById('chat_click');
 
 function checkToken() {
   customAxios
@@ -142,3 +143,7 @@ document.addEventListener("DOMContentLoaded", () => {
   document.getElementById("language-select").value = savedLang;
   changeLanguage();
 });
+
+chatDiv.addEventListener('click', () => {
+  return window.location.href = '/pages/chat.html'
+})

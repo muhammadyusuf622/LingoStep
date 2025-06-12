@@ -7,6 +7,8 @@ import * as path from 'path';
 import { JwtHelper } from './helpers';
 import { APP_GUARD } from '@nestjs/core';
 import { CheckAuthGuard, CheckRoleGuard } from './guards';
+import { ChatModule } from './modules';
+import { BooksModule } from './modules/books/books.module';
 
 @Module({
   imports: [
@@ -22,6 +24,10 @@ import { CheckAuthGuard, CheckRoleGuard } from './guards';
     PrismaModule,
 
     AuthModule,
+
+    ChatModule,
+
+    BooksModule
   ],
 
   providers: [

@@ -92,7 +92,7 @@ export class AuthController {
   @UseInterceptors(FileInterceptor('avatar', {
       limits: {fileSize: 1 * 1024 * 1024},
       fileFilter: (req, file, cb) => {
-        if(!file.mimetype.match(/\/(jpg|jpeg|png)$/)){
+        if(!file.mimetype.match(/\/(jpg|jpeg|png|webp)$/)){
           return cb(new BadRequestException('Only image files can be uploaded!'), false);
         }
         cb(null, true)

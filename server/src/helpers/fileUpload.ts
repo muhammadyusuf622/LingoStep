@@ -8,7 +8,7 @@ import * as fsPromis from "fs/promises"
 @Injectable()
 export class FileUpload{
 
-  async fileUpload(file: Express.Multer.File, deleteFile:any = undefined){
+  async fileUpload(file: Express.Multer.File | undefined, deleteFile:any = undefined){
 
 
     if(deleteFile){

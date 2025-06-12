@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LingoStep - Writing in a book</title>
+    <link rel="stylesheet" href="../css/bookPage.css">
+</head>
+<body>
+    <div class="navbar">
+        <h1 class="titleName"><a href="./homePage.html">LingoStep 👨🏼‍🏫</a></h1>
+    </div>
+
+    <div class="writing-container">
+        <div class="book-header">
+            <h2 data-lang-key="book-title">Kitobda yozish</h2>
+            <div class="book-info">
+                <img id="book-cover" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRzUFEcvl-XJ3Mib64Wd0TaCVkP_3Vl3ByAjA&s" alt="Book Cover">
+                <div>
+                    <p id="page-number" data-lang-key="page-number">Page: 1</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="book-page">
+            <div class="page-content">
+                <div class="text-display" id="text-display">
+                    <!-- Matn harflarga bo‘linib span elementlarida ko‘rsatiladi -->
+                </div>
+                <textarea id="typing-input" data-lang-key="typing-placeholder" placeholder="Matnni yozing..."></textarea>
+                <!-- <button id="play-audio" data-lang-key="play-audio">Audio tinglash</button> -->
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <p data-lang-key="footer-copyright">© 2025 LingoStep. Barcha huquqlar himoyalangan.</p>
+        <p><a href="#telegram-bot" data-lang-key="footer-telegram">Telegram Botga ulanish</a></p>
+    </footer>
+
+    <script src="../js/bookPage.js"></script>
+</body>
+</html>
