@@ -1,0 +1,100 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Georgia', serif;
+}
+
+body {
+    background-color: #eaebec;
+    color: #333;
+    margin-bottom: 110px;
+    margin-top: 110px;
+}
+
+.navbar {
+    background: linear-gradient(135deg, #ff6a00, #ee0979);
+    padding: 15px;
+    display: flex;
+    position: fixed;
+    top: 0px;
+    width: 100%;
+    justify-content: space-between;
+    align-items: center;
+    color: white;
+}
+
+.navbar h1 a {
+    font-size: 24px;
+    color: white;
+    text-decoration: none;
+}
+
+.container{
+  margin: 50px auto auto auto;
+  width: 1150px;
+}
+
+.books{
+  background-color: white;
+  border-radius: 10px;
+  width: 1150px;
+  height: auto;
+  padding: 20px;
+  padding-left: 40px;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 50px;
+}
+
+.book{
+  width: 300px;
+  height: 180px;
+  background-color:#F44336;
+  border-radius: 10px;
+  color: white;
+  font-weight: 300;
+  transition: transform 0.3s ease;
+  cursor: pointer;
+}
+
+.book img{
+  width: 300px;
+}
+
+.book:hover{
+  transform: scale(1.05);
+}
+
+.book div{
+  width: 300px;
+  height: 150px;
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.book-title{
+  color: #F44336;
+  margin-bottom: 10px;
+}
+
+
+.book h3{
+  margin-top: 3px;
+  text-align: center;
+}
+
+footer {
+    text-align: center;
+    padding: 20px;
+    background-color: #333;
+    color: white;
+    margin-top: 20px;
+    position: fixed;
+    bottom: 0px;
+    width: 100%;
+}
+
+footer a {
+  color: aqua;
+}

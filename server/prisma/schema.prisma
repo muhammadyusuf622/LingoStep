@@ -33,17 +33,18 @@ enum UserRoles {
 }
 
 model User {
-  id           String         @id @default(uuid()) @map("id") @db.Uuid
-  username     String?        @unique @default(uuid()) @db.VarChar(100)
-  email        String         @unique @db.VarChar(50)
-  type         networks
-  password     String?        @db.VarChar(100)
-  createdAt    DateTime       @default(now())
-  role         UserRoles      @default(USER)
-  imgUrl       String?        @default("https://cdn-icons-png.freepik.com/256/18238/18238419.png") @db.VarChar(150)
-  userProgress UserProgress[]
-  chat         chat[]
-  AdminMessage AdminMessage[]
+  id               String             @id @default(uuid()) @map("id") @db.Uuid
+  username         String?            @unique @default(uuid()) @db.VarChar(100)
+  email            String             @unique @db.VarChar(50)
+  type             networks
+  password         String?            @db.VarChar(100)
+  createdAt        DateTime           @default(now())
+  role             UserRoles          @default(USER)
+  imgUrl           String?            @default("https://cdn-icons-png.freepik.com/256/18238/18238419.png") @db.VarChar(150)
+  userProgress     UserProgress[]
+  chat             chat[]
+  AdminMessage     AdminMessage[]
+  SavedPagWithUser SavedPagWithUser[]
 
   @@map("users")
 }
@@ -77,6 +78,7 @@ model LessonGamerStep {
 model Quiz {
   id           String         @id @default(uuid()) @map("id") @db.Uuid
   title        String         @db.VarChar(100)
+  imgUrl       String         @db.VarChar(150)
   level        Int            @default(1)
   createdAt    DateTime       @default(now())
   quizQuestion QuizQuestion[]
@@ -89,7 +91,9 @@ model QuizQuestion {
   question_text  String
   correct_answer String
   video_url      String?  @db.VarChar(150)
+  img_url        String?  @db.VarChar(150)
   audio_url      String?  @db.VarChar(150)
+  page_order     Int
   quiz_id        String   @db.Uuid
   quiz           Quiz     @relation(fields: [quiz_id], references: [id], onDelete: Cascade, onUpdate: NoAction)
   createdAt      DateTime @default(now())
@@ -98,15 +102,14 @@ model QuizQuestion {
 }
 
 model UserProgress {
-  id               String    @id @default(uuid()) @map("id") @db.Uuid
-  userId           String    @db.Uuid
-  user             User      @relation(fields: [userId], references: [id], onDelete: Cascade, onUpdate: NoAction)
-  lesson_level     Int       @default(1)
-  quiz_level       Int       @default(1)
-  completed_at     DateTime?
-  score            Int?      @default(0)
-  saved_page_order Int       @default(1)
-  createdAt        DateTime  @default(now())
+  id           String    @id @default(uuid()) @map("id") @db.Uuid
+  userId       String    @unique @db.Uuid
+  user         User      @relation(fields: [userId], references: [id], onDelete: Cascade, onUpdate: NoAction)
+  lesson_level Int       @default(1)
+  quiz_level   Int       @default(1)
+  completed_at DateTime?
+  score        Int?      @default(0)
+  createdAt    DateTime  @default(now())
 
   @@map("user_progress")
 }
@@ -134,21 +137,22 @@ model AdminMessage {
 
 model TelegramNote {
   id            String   @id @default(uuid()) @map("id") @db.Uuid
-  chatId        Int
-  username      String   @db.VarChar(100)
-  phone_number  String   @db.VarChar(100)
+  chatId        BigInt   @unique @db.BigInt
+  username      String   @unique @db.VarChar(100)
+  phone_number  String   @unique @db.VarChar(100)
   language_code String   @db.VarChar(10)
-  message       String
+  message       String?
   createAt      DateTime @default(now())
 
   @@map("telegramNote")
 }
 
 model Book {
-  id              String            @id @default(uuid()) @map("id") @db.Uuid
-  name            String            @db.VarChar(100)
-  imgUrl          String            @db.VarChar(150)
-  writeBookTypeng WriteBookTypeng[]
+  id               String             @id @default(uuid()) @map("id") @db.Uuid
+  name             String             @db.VarChar(100)
+  imgUrl           String             @db.VarChar(150)
+  writeBookTypeng  WriteBookTypeng[]
+  SavedPagWithUser SavedPagWithUser[]
 
   @@map("book")
 }
@@ -158,11 +162,23 @@ model WriteBookTypeng {
   book_id    String   @db.Uuid
   book       Book     @relation(fields: [book_id], references: [id], onDelete: Cascade)
   page       String
+  imgUrl     String?  @db.VarChar(150)
   page_order Int
   audio_url  String?  @db.VarChar(150)
   createAt   DateTime @default(now())
 
   @@map("writeBookTypeng")
+}
+
+model SavedPagWithUser {
+  id               String @id @default(uuid()) @map("id") @db.Uuid
+  saved_page_order Int    @default(1)
+  userId           String @db.Uuid
+  user             User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+  bookId           String @db.Uuid
+  book             Book   @relation(fields: [bookId], references: [id], onDelete: Cascade)
+
+  @@map("savedPagWithUser")
 }
 
 model LessonCategory {

@@ -19,9 +19,13 @@ export class BooksService {
   async findAll() {
     const data = await this.prisma.book.findMany();
 
+    const newData = data.map((item) => {
+      item.imgUrl = (process.env.BACKEND_URL as string) + item.imgUrl
+      return item;
+    });
     return {
       message: 'success',
-      data: data,
+      data: newData,
     };
   }
 

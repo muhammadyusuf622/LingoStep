@@ -3,7 +3,7 @@ import { IsOptional, IsString } from "class-validator";
 
 export class CreateBookDto {
 
-  @ApiProperty({type: 'string', example: 'Harry Pottes', required: true})
+  @ApiProperty({type: 'string', example: 'Harry Potter', required: true})
   @IsString()
   name: string;
 

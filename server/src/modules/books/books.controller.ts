@@ -36,7 +36,7 @@ export class BooksController {
     FileInterceptor('image', {
       limits: { fileSize: 1 * 1024 * 1024 },
       fileFilter: (req, file, cb) => {
-        if (!file.mimetype.match(/\/(jpg|jpeg|png)$/)) {
+        if (!file.mimetype.match(/\/(jpg|jpeg|png|avif)$/)) {
           return cb( new BadRequestException('Only image files can be uploaded!'),false,);
         }
         cb(null, true)
@@ -55,7 +55,7 @@ export class BooksController {
     FileInterceptor('image', {
       limits: { fileSize: 1 * 1024 * 1024 },
       fileFilter: (req, file, cb) => {
-        if (!file.mimetype.match(/\/(jpg|jpeg|png)$/)) {
+        if (!file.mimetype.match(/\/(jpg|jpeg|png|avif)$/)) {
           return cb( new BadRequestException('Only image files can be uploaded!'),false,);
         }
         cb(null, true)

@@ -52,6 +52,10 @@ body {
   cursor: pointer;
 }
 
+.book img{
+  width: 200px;
+}
+
 .book:hover{
   transform: scale(1.05);
 }
@@ -80,7 +84,7 @@ footer {
     background-color: #333;
     color: white;
     margin-top: 20px;
-    position: absolute;
+    position: fixed;
     bottom: 0px;
     width: 100%;
 }

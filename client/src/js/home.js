@@ -3,6 +3,8 @@ import customAxios from "./axios";
 const languageSelect = document.getElementById("language-select");
 const profilImg = document.getElementById('profilImg');
 const chatDiv = document.getElementById('chat_click');
+const books_click = document.getElementById('books_click');
+const quiz_click = document.getElementById('quiz_click');
 
 function checkToken() {
   customAxios
@@ -57,7 +59,7 @@ const languages = {
     "feature-tests-desc": "Darajangizni aniqlash va bilimlaringizni sinash.",
     "feature-gamification": "✍️ Kitob Yoz",
     "feature-gamification-desc":
-      "O'z qo'llaringiz bilan kitob yozing",
+      "🎧 Sevimli kitobingni audio tarzda tingla, ✍️ Har bir so‘zini o‘zing yozib, muallif kabi his et!",
     "feature-chat": "💬 Ommaviy Chat",
     "feature-chat-desc":
       "Boshqa o‘quvchilar bilan suhbatlashing va tajriba almashing.",
@@ -84,7 +86,7 @@ const languages = {
     "feature-tests-desc": "Определите свой уровень и проверьте знания.",
     "feature-gamification": "✍️ Написать книгу",
     "feature-gamification-desc":
-      "Собирайте баллы, получайте медали и поднимайтесь в таблице лидеров!",
+      "🎧 Слушай любимую книгу, ✍️ Печатай каждое слово — почувствуй себя автором!",
     "feature-chat": "💬 Общий чат",
     "feature-chat-desc":
       "Общайтесь с другими учениками и обменивайтесь опытом.",
@@ -110,7 +112,7 @@ const languages = {
     "feature-tests-desc": "Determine your level and test your knowledge.",
     "feature-gamification": "✍️ Write a book",
     "feature-gamification-desc":
-      "Earn points, win medals, and climb the leaderboard!",
+      "🎧 Listen to your favorite book, ✍️ Type each word and feel like the author!",
     "feature-chat": "💬 Community Chat",
     "feature-chat-desc": "Chat with other learners and share experiences.",
     "feature-ai": "🤖 AI Tutor",
@@ -146,4 +148,12 @@ document.addEventListener("DOMContentLoaded", () => {
 
 chatDiv.addEventListener('click', () => {
   return window.location.href = '/pages/chat.html'
-})
+});
+
+books_click.addEventListener('click', () => {
+  return window.location.href = '/pages/book.html'
+});
+
+quiz_click.addEventListener('click', () => {
+  return window.location.href = '/pages/quiz.html'
+});

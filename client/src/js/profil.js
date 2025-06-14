@@ -5,11 +5,17 @@ const username = document.getElementById("username");
 const userEmail = document.getElementById("userEmail");
 const errorImg = document.querySelector(".errorImg");
 const logout = document.getElementById('logout');
+const userLevel = document.querySelector('.w1');
+const quizLevel = document.querySelector('.w2');
+const socreLevel = document.querySelector('.w3');
 
-function userInfo(data) {
+function userInfo(data, levels) {
   avatarPreview.src = data?.imgUrl;
   username.textContent = data.username;
   userEmail.textContent = data.email;
+  userLevel.textContent = `Lesson Level: ${levels.lesson_level}`
+  quizLevel.textContent = `Quiz Level: ${levels.quiz_level}`
+  socreLevel.textContent = `All Score: ${levels.score}`
 }
 
 function checkToken() {
@@ -30,8 +36,7 @@ checkToken();
 customAxios
   .get("/auth/getUserById")
   .then((res) => {
-    console.log(res.data)
-    userInfo(res.data.data);
+    userInfo(res.data.data, res.data.userProgress);
   })
   .catch((err) => {
     console.log(err);

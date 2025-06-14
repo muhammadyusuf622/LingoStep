@@ -13,12 +13,15 @@
 
     <div class="writing-container">
         <div class="book-header">
-            <h2 data-lang-key="book-title">Kitobda yozish</h2>
+            <h2 id="book-name" data-lang-key="book-title">Kitobda yozish</h2>
             <div class="book-info">
-                <img id="book-cover" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRzUFEcvl-XJ3Mib64Wd0TaCVkP_3Vl3ByAjA&s" alt="Book Cover">
+                <img id="book-cover" alt="Book Cover">
                 <div>
                     <p id="page-number" data-lang-key="page-number">Page: 1</p>
+                    <audio class="audioUrl" controls src="../audio/Chapter 01 - The Boy Who Lived.mp3"></audio>
+                    <h3 class="addScorWord">Receive 100 points upon completing each page</h3>
                 </div>
+  
             </div>
         </div>
 
@@ -27,7 +30,8 @@
                 <div class="text-display" id="text-display">
                     <!-- Matn harflarga bo‘linib span elementlarida ko‘rsatiladi -->
                 </div>
-                <textarea id="typing-input" data-lang-key="typing-placeholder" placeholder="Matnni yozing..."></textarea>
+                <textarea id="typing-input" data-lang-key="typing-placeholder" placeholder="Write your own book..."></textarea>
+                <h3 id="pastError"></h3>
                 <!-- <button id="play-audio" data-lang-key="play-audio">Audio tinglash</button> -->
             </div>
         </div>
@@ -38,6 +42,6 @@
         <p><a href="#telegram-bot" data-lang-key="footer-telegram">Telegram Botga ulanish</a></p>
     </footer>
 
-    <script src="../js/bookPage.js"></script>
+    <script type="module" src="../js/bookPage.js"></script>
 </body>
 </html>

@@ -95,6 +95,7 @@ body {
     padding: 20px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     min-height: 400px;
+    /* max-height: 600px; */
 }
 
 .page-content {
@@ -106,7 +107,9 @@ body {
     line-height: 1.6;
     color: #333;
     min-height: 200px;
+    max-height: 300px;
     padding: 10px;
+    overflow-y: auto;
     background-color: #fff;
     border: 1px solid #ddd;
     border-radius: 4px;
@@ -114,6 +117,8 @@ body {
 
 .text-display span {
     transition: color 0.2s;
+    font-size: 20px;
+    margin: 0 0.8px;
 }
 
 .text-display .correct {
@@ -152,6 +157,22 @@ footer {
   text-decoration: none;
 }
 
+.audioUrl{
+  width: 90%;
+}
+
+#pastError{
+  text-align: center;
+  color: red;
+}
+
+.addScorWord{
+  margin-top: 10px;
+  color: #ff6a00;
+
+}
+
+
 
 @media (max-width: 600px) {
     .navbar h1 {
@@ -184,3 +205,41 @@ footer {
         font-size: 14px;
     }
 }
+
+
+        .modal {
+          display: none;
+          position: fixed;
+          top: 50%;
+          left: 50%;
+          transform: translate(-50%, -50%);
+          background: rgba(0, 0, 0, 0.8);
+          color: white;
+          padding: 20px;
+          text-align: center;
+          border-radius: 10px;
+          font-size: 24px;
+          z-index: 1000;
+      }
+
+      .confetti {
+          position: fixed;
+          top: 0;
+          width: 10px;
+          height: 10px;
+          background: red;
+          border-radius: 50%;
+          opacity: 0.8;
+          animation: confetti-fall 2s ease-out forwards;
+      }
+
+      @keyframes confetti-fall {
+          0% {
+              transform: translateY(0) translateX(0) rotate(0);
+              opacity: 1;
+          }
+          100% {
+              transform: translateY(100vh) translateX(calc(-50vw + 100vw * var(--randX))) rotate(720deg);
+              opacity: 0;
+          }
+      }

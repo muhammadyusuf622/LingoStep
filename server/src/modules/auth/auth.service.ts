@@ -14,7 +14,6 @@ import { FileUpload, JwtHelper } from 'src/helpers';
 import { Request, Response } from 'express';
 import { isUUID } from 'validator';
 
-
 @Injectable()
 export class AuthService implements OnModuleInit {
   constructor(
@@ -24,7 +23,7 @@ export class AuthService implements OnModuleInit {
   ) {}
 
   async onModuleInit() {
-    await this.seedFile()
+    await this.seedFile();
   }
 
   async findAll() {
@@ -50,6 +49,8 @@ export class AuthService implements OnModuleInit {
         type: networks.normal,
       },
     });
+
+    await this.prisma.userProgress.create({ data: { userId: data.id } });
 
     const tokenPayload = {
       id: data.id,
@@ -89,6 +90,7 @@ export class AuthService implements OnModuleInit {
       data = await this.prisma.user.create({
         data: { email: payload.email, type: networks.github },
       });
+      await this.prisma.userProgress.create({ data: { userId: data.id } });
     } else {
       data = foundUser;
     }
@@ -132,6 +134,7 @@ export class AuthService implements OnModuleInit {
       data = await this.prisma.user.create({
         data: { email: payload.email, type: networks.github },
       });
+      await this.prisma.userProgress.create({ data: { userId: data.id } });
     } else {
       data = foundUser;
     }
@@ -175,6 +178,7 @@ export class AuthService implements OnModuleInit {
       data = await this.prisma.user.create({
         data: { email: email, type: networks.github },
       });
+      await this.prisma.userProgress.create({ data: { userId: data.id } });
     } else {
       data = foundUser;
     }
@@ -305,9 +309,12 @@ export class AuthService implements OnModuleInit {
       user.imgUrl = (process.env.BACKEND_URL as string) + user.imgUrl;
     }
 
+    const userProgress = await this.prisma.userProgress.findUnique({where: {userId: req?.userId}});
+
     return {
       message: 'success',
       data: user,
+      userProgress: userProgress
     };
   }
 
@@ -348,7 +355,6 @@ export class AuthService implements OnModuleInit {
   }
 
   async locaut(res: Response) {
-
     res.clearCookie('accessToken', {
       httpOnly: true,
       secure: process.env.NODE_ENV === 'production',
@@ -366,17 +372,26 @@ export class AuthService implements OnModuleInit {
     };
   }
 
-  async seedFile(){
+  async seedFile() {
+    const admin = await this.prisma.user.findFirst({
+      where: { email: 'yuvsufn@gmail.com' },
+    });
 
-    const admin = await this.prisma.user.findFirst({where: {email: 'yuvsufn@gmail.com'}});
-
-    if(!admin){
-      const hashPassword = await bcrypt.hash(process.env.ADMIN_PASSWORD as string, 10)
-      await this.prisma.user.create({data: {
-        email: 'yuvsufn@gmail.com', type: 'normal',
-        password: hashPassword, username:'muhammad571',
-        role: 'SUPPER_ADMIN',
-        }});
+    if (!admin) {
+      const hashPassword = await bcrypt.hash(
+        process.env.ADMIN_PASSWORD as string,
+        10,
+      );
+      const data = await this.prisma.user.create({
+        data: {
+          email: 'yuvsufn@gmail.com',
+          type: 'normal',
+          password: hashPassword,
+          username: 'muhammad571',
+          role: 'SUPPER_ADMIN',
+        },
+      });
+      await this.prisma.userProgress.create({ data: { userId: data.id } });
     }
   }
 }
