@@ -78,11 +78,10 @@ body {
 
 .slider {
     width: 80em;
-    /* max-width: 800px; */
     margin: 0 auto 20px;
     overflow: hidden;
     position: relative;
-    height: 400px;
+    height: 280px;
 }
 
 .slides {
@@ -97,7 +96,7 @@ body {
 
 .slide img {
     width: 100%;
-    height: 400px;
+    height: 280px;
     object-fit: cover;
     border-radius: 8px;
 }
@@ -197,6 +196,8 @@ footer {
     position: fixed;
     bottom: 5em;
     right: 2em;
+    cursor: pointer;
+    display: none;
 }
 
 .contact_admin img{
@@ -211,6 +212,90 @@ height: 50px;
 border-radius: 50%;
 }
 
+.report-box{
+    width: 300px;
+    height: 600px;
+    background-color: #333;
+    position: fixed;
+    top: 70px;
+    right: 10px;
+    border-radius: 10px;
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    display: none;
+    transition: all 0.3s ease;
+}
+
+
+.user-box, .admin-box {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    border-bottom: 1px solid #fff;
+    padding-bottom: 10px;
+}
+
+.admin-box {
+    align-items: flex-start; /* admin chapda */
+}
+
+.user-box img, .admin-box img {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    margin-bottom: 5px;
+}
+
+.user-box p, .admin-box p {
+    margin: 0;
+    text-align: end;
+}
+
+.admin-box p {
+    text-align: start;
+}
+
+.user-panding{
+    background-color: rgb(67, 67, 250);
+    width: 80px;
+    height: 20px;
+    text-align: center;
+    border-radius: 20px;
+    margin-top: 5px;
+}
+
+.textUser{
+    position: fixed;
+    bottom: 160px;
+    width: 300px;
+    height: 40px;
+    right: 10px;
+    border-radius: 10px;
+    display: flex;
+    gap: 10px;
+}
+
+.textUser textarea{
+    width: 100%;
+    border-radius: 10px;
+    height: 50px;
+    padding: 10px;
+    background-color: #333;
+    border: none;
+    color: white;
+    resize: none;
+
+}
+textarea:focus {
+  outline: none;
+}
+
+.fontasmClick{
+    margin-right: 10px;
+    margin-top: 30px;
+}
 
 @media (max-width: 600px) {
     .navbar h1 {

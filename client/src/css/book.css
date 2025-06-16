@@ -88,3 +88,7 @@ footer {
     bottom: 0px;
     width: 100%;
 }
+
+footer a{
+  color:aqua;
+}

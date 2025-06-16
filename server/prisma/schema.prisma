@@ -90,6 +90,7 @@ model QuizQuestion {
   id             String   @id @default(uuid()) @map("id") @db.Uuid
   question_text  String
   correct_answer String
+  quizOptions    Json?
   video_url      String?  @db.VarChar(150)
   img_url        String?  @db.VarChar(150)
   audio_url      String?  @db.VarChar(150)
@@ -129,8 +130,10 @@ model AdminMessage {
   userId  String    @db.Uuid
   user    User      @relation(fields: [userId], references: [id], onDelete: Cascade)
   message String
+  adminMessage String?
   status  Complaint @default(pending)
   sent_at DateTime  @default(now())
+
 
   @@map("adminMessage")
 }

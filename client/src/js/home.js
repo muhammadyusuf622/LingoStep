@@ -1,10 +1,10 @@
 import customAxios from "./axios";
 
 const languageSelect = document.getElementById("language-select");
-const profilImg = document.getElementById('profilImg');
-const chatDiv = document.getElementById('chat_click');
-const books_click = document.getElementById('books_click');
-const quiz_click = document.getElementById('quiz_click');
+const profilImg = document.getElementById("profilImg");
+const chatDiv = document.getElementById("chat_click");
+const books_click = document.getElementById("books_click");
+const quiz_click = document.getElementById("quiz_click");
 
 function checkToken() {
   customAxios
@@ -24,7 +24,7 @@ checkToken();
 customAxios
   .get("/auth/getUserById")
   .then((res) => {
-    profilImg.src = res.data.data.imgUrl
+    profilImg.src = res.data.data.imgUrl;
   })
   .catch((err) => {
     console.log(err);
@@ -136,7 +136,7 @@ function changeLanguage() {
   localStorage.setItem("selectedLanguage", lang);
 }
 
-languageSelect.addEventListener('change', () => {
+languageSelect.addEventListener("change", () => {
   changeLanguage();
 });
 
@@ -146,14 +146,32 @@ document.addEventListener("DOMContentLoaded", () => {
   changeLanguage();
 });
 
-chatDiv.addEventListener('click', () => {
-  return window.location.href = '/pages/chat.html'
+chatDiv.addEventListener("click", () => {
+  return (window.location.href = "/pages/chat.html");
 });
 
-books_click.addEventListener('click', () => {
-  return window.location.href = '/pages/book.html'
+books_click.addEventListener("click", () => {
+  return (window.location.href = "/pages/book.html");
 });
 
-quiz_click.addEventListener('click', () => {
-  return window.location.href = '/pages/quiz.html'
+quiz_click.addEventListener("click", () => {
+  return (window.location.href = "/pages/quiz.html");
+});
+
+document.addEventListener("DOMContentLoaded", () => {
+  const contact_admin = document.querySelector(".contact_admin");
+  const report_box = document.querySelector(".report-box");
+  const textarea = document.querySelector('textarea');
+
+
+  contact_admin.addEventListener("click", () => {
+    if (
+      report_box.style.display === "none" ||
+      report_box.style.display === ""
+    ) {
+      report_box.style.display = "block";
+    } else {
+      report_box.style.display = "none";
+    }
+  });
 });

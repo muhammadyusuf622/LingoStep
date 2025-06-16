@@ -13,7 +13,7 @@ function createBookFn(arr) {
     img.src = data.imgUrl;
     img.alt = "this img";
     const h3 = document.createElement("h3");
-    h3.textContent = data.name;
+    h3.textContent = data.title;
     innerDiv.appendChild(img);
     bookDiv.appendChild(innerDiv);
     bookDiv.appendChild(h3);
@@ -22,18 +22,18 @@ function createBookFn(arr) {
 }
 
 document.addEventListener("DOMContentLoaded", async() => {
-  // await customAxios
-  //   .get("/books")
-  //   .then((res) => {
-  //     createBookFn(res.data.data);
-  //   })
-  //   .catch((err) => console.log(err.response.data.message));
+  await customAxios
+    .get("/quiz")
+    .then((res) => {
+      createBookFn(res.data.data);
+    })
+    .catch((err) => console.log(err.response.data.message));
 
   const books = document.querySelectorAll(".book");
 
   books.forEach((item) => {
     item.addEventListener("click", () => {
-      // localStorage.setItem('bookId', item.dataset.name)
+      localStorage.setItem('quizId', item.dataset.name)
       return window.location.href = '/pages/quizPage.html'
     });
   });

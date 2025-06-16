@@ -87,6 +87,7 @@ export class QuizQuiestionService {
         img_url: imgUrl,
         video_url: videoUrl,
         audio_url: audioUrl,
+        quizOptions: payload.quizOptions,
       },
     });
 
@@ -156,12 +157,86 @@ export class QuizQuiestionService {
         img_url: imgUrl || null,
         audio_url: audioUrl || null,
         video_url: videoUrl || null,
+        quizOptions: payload.quizOptions || foundQuizQuestion.quizOptions,
       },
     });
 
     return {
       message: 'success',
       data: data,
+    };
+  }
+
+  async getByQuizId({ quizId }: any) {
+    if (!isUUID(quizId)) {
+      throw new BadRequestException('Id Error Format');
+    }
+
+    const foundQuiz = await this.prisma.quiz.findUnique({
+      where: { id: quizId },
+    });
+
+    if (!foundQuiz) {
+      throw new NotFoundException('Quiz Not Found');
+    }
+
+    const foundQuestion = await this.prisma.quizQuestion.findFirst({
+      where: { quiz_id: quizId, page_order: 1 },
+    });
+
+    if (!foundQuestion) {
+      throw new NotFoundException('Question page Not Found');
+    }
+
+    if (foundQuestion.img_url) {
+      foundQuestion.img_url =
+        (process.env.BACKEND_URL as string) + foundQuestion.img_url;
+    } else if (foundQuestion.video_url) {
+      foundQuestion.video_url =
+        (process.env.BACKEND_URL as string) + foundQuestion.img_url;
+    } else if (foundQuestion.audio_url) {
+      foundQuestion.audio_url =
+        (process.env.BACKEND_URL as string) + foundQuestion.img_url;
+    }
+
+    return {
+      message: 'success',
+      data: foundQuestion,
+    };
+  }
+
+  async getNextQuestion({ quizId, pageOrder }: any) {
+    if (!isUUID(quizId)) {
+      throw new BadRequestException('Id Error Format');
+    }
+
+    const foundQuiz = await this.prisma.quiz.findUnique({
+      where: { id: quizId },
+    });
+
+    if (!foundQuiz) {
+      throw new NotFoundException('Next Question Not Found');
+    }
+
+    const foundQuestion = await this.prisma.quizQuestion.findFirst({
+      where: { quiz_id: quizId, page_order: pageOrder + 1 },
+    });
+
+    if(!foundQuestion){
+      return {message: "over"}
+    }
+    
+    if (foundQuestion.img_url) {
+      foundQuestion.img_url = (process.env.BACKEND_URL as string) + foundQuestion.img_url;
+    } else if (foundQuestion.video_url) {
+      foundQuestion.video_url = (process.env.BACKEND_URL as string) + foundQuestion.video_url;
+    } else if (foundQuestion.audio_url) {
+      foundQuestion.audio_url = (process.env.BACKEND_URL as string) + foundQuestion.audio_url;
+    }
+
+    return {
+      message: 'success',
+      data: foundQuestion
     };
   }
 
@@ -186,7 +261,7 @@ export class QuizQuiestionService {
       await this.videoFile.fileUpload(undefined, foundQuizQuestion.video_url);
     }
 
-    await this.prisma.quizQuestion.delete({where: {id}});
+    await this.prisma.quizQuestion.delete({ where: { id } });
 
     return {
       message: 'success',

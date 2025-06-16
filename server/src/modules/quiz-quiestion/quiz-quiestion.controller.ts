@@ -44,7 +44,7 @@ export class QuizQuiestionController {
         { name: 'video', maxCount: 1 },
       ],
       {
-        limits: { fileSize: 20 * 1024 * 1024 },
+        limits: { fileSize: 100 * 1024 * 1024 },
         fileFilter: (req, file, cb) => {
           const mime = file.mimetype;
           const fieldName = file.fieldname;
@@ -92,7 +92,7 @@ export class QuizQuiestionController {
         { name: 'video', maxCount: 1 },
       ],
       {
-        limits: { fileSize: 20 * 1024 * 1024 },
+        limits: { fileSize: 100 * 1024 * 1024 },
         fileFilter: (req, file, cb) => {
           const mime = file.mimetype;
           const fieldName = file.fieldname;
@@ -130,7 +130,19 @@ export class QuizQuiestionController {
     return this.quizQuiestionService.update(id, updateQuizQuiestionDto, files);
   }
 
+  @Post('/getByQuizId')
+  @Protected(true)
+  @Roles([UserRoles.ADMIN, UserRoles.SUPPER_ADMIN, UserRoles.USER])
+  async getByQuizId(@Body() body: any){
+    return await this.quizQuiestionService.getByQuizId(body);
+  }
 
+  @Post('/nextPage')
+  @Protected(true)
+  @Roles([UserRoles.ADMIN, UserRoles.SUPPER_ADMIN, UserRoles.USER])
+  async getNextQuestion(@Body() body: any){
+    return await this.quizQuiestionService.getNextQuestion(body)
+  }
 
   @Delete(':id')
   @Protected(true)

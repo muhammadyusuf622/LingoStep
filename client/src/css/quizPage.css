@@ -118,6 +118,7 @@ body {
   cursor: pointer;
   font-size: 20px;
   transition: all 0.3s ease;
+  padding: 10px;
 }
 
 .quiz-options_colum-two div{
@@ -133,6 +134,7 @@ body {
   cursor: pointer;
   font-size: 20px;
   transition: all 0.3s ease;
+  padding: 10px;
 }
 
 .quiz-options_colum-One div:hover{
@@ -149,6 +151,24 @@ body {
 
 .quiz-options_colum-two div:active{
   background-color: #b35009;
+}
+
+.overPage{
+  width: 1000px;
+  height: 580px;
+  background-color: rgb(241, 105, 14);
+  position: absolute;
+  left: 14em;
+  border-radius: 30px;
+  text-align: center;
+  padding: 200px;
+  transition: all 0.3s ease;
+  display: none;
+}
+
+.overPage h2{
+  color: white;
+  font-size: 100px;
 }
 
 
