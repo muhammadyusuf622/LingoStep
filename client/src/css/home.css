@@ -55,6 +55,18 @@ body {
     cursor: pointer;
 }
 
+#language-select{
+    background: none;
+    color: white;
+    border: none;
+}
+
+#language-select:focus{
+  outline: none;
+  box-shadow: none;
+  border: 1px solid #999;
+}
+
 .hero {
     text-align: center;
     padding: 50px 20px;
@@ -143,6 +155,12 @@ body {
     cursor: pointer;
 }
 
+.card-video_chat{
+    background: linear-gradient(120deg, #02bff4 0%, #6a0dad 100%);
+    grid-row: 2 / 4;
+    grid-column: 1 / 4;
+}
+
 .feature-card:hover {
     transform: scale(1.05);
 }
@@ -189,7 +207,11 @@ footer {
 
 
 .profilImg img{
-    width: 50px;
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  object-fit: cover;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
 
 .contact_admin{
@@ -197,7 +219,6 @@ footer {
     bottom: 5em;
     right: 2em;
     cursor: pointer;
-    display: none;
 }
 
 .contact_admin img{
@@ -206,9 +227,14 @@ footer {
 }
 
 .profilImg{
+width: 60px;
+height: 60px;
+padding: 2px;
+display: flex;
+justify-content: center;
+align-items: center;
 overflow: hidden;
-width: 50px;
-height: 50px;
+border: 2px solid white;
 border-radius: 50%;
 }
 
@@ -217,15 +243,17 @@ border-radius: 50%;
     height: 600px;
     background-color: #333;
     position: fixed;
-    top: 70px;
+    top: 62px;
     right: 10px;
     border-radius: 10px;
     padding: 10px;
+    padding-bottom: 80px;
     display: flex;
     flex-direction: column;
     gap: 20px;
     display: none;
     transition: all 0.3s ease;
+    overflow-y: scroll
 }
 
 
@@ -233,12 +261,24 @@ border-radius: 50%;
     display: flex;
     flex-direction: column;
     align-items: flex-end;
-    border-bottom: 1px solid #fff;
     padding-bottom: 10px;
+    padding: 8px;
+}
+
+.user-box{
+    background-color: #5b5b5b;
+    border-radius: 10px;
+    float: right;
+    margin: 4px;
+    width: 250px;
 }
 
 .admin-box {
     align-items: flex-start; /* admin chapda */
+    background-color: #767575;
+    border-radius: 10px;
+    width: 250px;
+    /* border-bottom: 1px solid #fff; */
 }
 
 .user-box img, .admin-box img {
@@ -246,6 +286,7 @@ border-radius: 50%;
     height: 50px;
     border-radius: 50%;
     margin-bottom: 5px;
+    margin-top: 5px;
 }
 
 .user-box p, .admin-box p {
@@ -268,13 +309,14 @@ border-radius: 50%;
 
 .textUser{
     position: fixed;
-    bottom: 160px;
+    bottom: 220px;
     width: 300px;
-    height: 40px;
+    height: 50px;
     right: 10px;
     border-radius: 10px;
     display: flex;
     gap: 10px;
+    background-color: #333;
 }
 
 .textUser textarea{
@@ -283,6 +325,7 @@ border-radius: 50%;
     height: 50px;
     padding: 10px;
     background-color: #333;
+    font-size: 18px;
     border: none;
     color: white;
     resize: none;
@@ -294,35 +337,333 @@ textarea:focus {
 
 .fontasmClick{
     margin-right: 10px;
-    margin-top: 30px;
+    margin-top: 20px;
+    font-size: 20px;
+    cursor: pointer;
+    display: none;
 }
 
+/* ========================================================== */
+/* MEDIYA SO'ROVLARI (RESPONSIVLIK UCHUN) */
+/* ========================================================== */
+
+/* Umumiy sozlamalar uchun boshlang'ich breakpoint (Masalan, 1200px dan kichik ekranlar) */
+@media (max-width: 1200px) {
+    /* Slider kengligini moslash */
+    .slider {
+        width: 90%; /* Katta ekranlar uchun nisbiy kenglik */
+        margin: 0 auto 20px;
+    }
+}
+
+
+/* Ekran kengligi 992px va undan kichik bo'lganda (Tabletlar va kichik noutbuklar) */
+@media (max-width: 992px) {
+    body {
+        margin-top: 4.5em; /* Navbar balandligiga moslash */
+        margin-bottom: 90px; /* Footer balandligiga moslash */
+    }
+
+    .navbar {
+        padding: 5px 10px; /* Navbar paddingini kamaytirish */
+    }
+
+    .navbar h1 {
+        font-size: 22px;
+    }
+
+    .nav-links {
+        gap: 20px; /* Bo'shliqni kamaytirish */
+        margin-right: 5px;
+    }
+
+    .nav-links a {
+        font-size: 15px;
+    }
+
+    .nav-links select {
+        padding: 6px;
+        font-size: 15px;
+    }
+
+    .hero {
+        padding: 40px 15px;
+        margin: 15px;
+    }
+
+    .hero h2 {
+        font-size: 28px;
+    }
+
+    .hero p {
+        font-size: 16px;
+    }
+
+    /* SLIDER MUAMMOSINI HAL QILISH */
+    .slider {
+        width: 95%; /* Kichik ekranlarda slider kengligini yanada moslash */
+        height: 250px; /* Slider balandligini kamaytirish */
+        margin: 0 auto 15px;
+    }
+
+    .slides {
+        /* Bu yerda o'zgarish yo'q, chunki transform JS orqali boshqariladi */
+    }
+
+    .slide img {
+        height: 250px; /* Rasm balandligini slider balandligiga moslash */
+        object-fit: contain; /* Rasmni butunligicha ko'rsatish, tashqariga chiqmasligi uchun */
+        background-color: #f0f2f5; /* Agar object-fit: contain bo'lsa, bo'sh joyni to'ldirish uchun fon */
+    }
+
+    .level-select {
+        flex-wrap: wrap; /* Kartalarni o'ralishini ta'minlash */
+        gap: 15px;
+        margin: 15px 0;
+    }
+
+    .level-card {
+        width: 180px; /* Kartalar kengligini kamaytirish */
+        padding: 15px;
+    }
+
+    .features {
+        gap: 15px;
+        padding: 15px;
+    }
+
+    .feature-card h3 {
+        font-size: 18px;
+    }
+
+    .feature-card p {
+        font-size: 14px;
+    }
+
+    .cta-button {
+        padding: 8px 16px;
+        font-size: 15px;
+    }
+
+    /* FOOTER VA CHAT BOX */
+    footer {
+        padding: 15px;
+        font-size: 0.9em;
+    }
+
+    .contact_admin {
+        bottom: 4.5em; /* Footer balandligiga moslash */
+        right: 1.5em;
+    }
+
+    .contact_admin img {
+        width: 50px; /* Admin ikonkasini kichraytirish */
+    }
+
+    .report-box {
+        width: 280px; /* Chat box kengligini kamaytirish */
+        height: 500px; /* Balandlikni moslash */
+        top: 58px; /* Navbar balandligiga moslash */
+        right: 10px;
+        padding-bottom: 70px; /* Pastki input uchun joy qoldirish */
+    }
+
+    .user-box, .admin-box {
+        width: 230px; /* Xabarlar kengligini moslash */
+    }
+
+    .user-box img, .admin-box img {
+        width: 40px; /* Profil rasmlarini kichraytirish */
+        height: 40px;
+    }
+
+    .textUser {
+        width: 280px; /* Textarea joylashuvini moslash */
+        bottom: 140px; /* Footer va chat box pastki qismiga moslash */
+        right: 10px;
+    }
+
+    .textUser textarea {
+        height: 45px;
+        padding: 8px;
+        font-size: 15px;
+    }
+
+    .fontasmClick {
+        font-size: 18px;
+        margin-top: 15px;
+    }
+}
+
+/* Ekran kengligi 700px va undan kichik bo'lganda (Kichik tabletlar va katta smartfonlar) */
+@media (max-width: 700px) {
+    .level-select {
+        flex-direction: column; /* Kartalarni vertikal joylash */
+        align-items: center; /* Markazga joylash */
+    }
+
+    .level-card {
+        width: 80%; /* Kengligini oshirish */
+        max-width: 250px; /* Maksimal kenglikni cheklash */
+    }
+
+    .features {
+        padding: 10px;
+    }
+
+    .feature-card {
+        padding: 15px;
+    }
+}
+
+
+/* Ekran kengligi 600px va undan kichik bo'lganda (Smartfonlar) */
 @media (max-width: 600px) {
+    body {
+        margin-top: 4em; /* Navbar balandligiga moslash */
+        margin-bottom: 80px; /* Footer balandligiga moslash */
+    }
     .navbar h1 {
         font-size: 20px;
     }
 
     .nav-links {
-        gap: 10px;
+        gap: 8px;
+        margin-right: 0;
+        flex-wrap: wrap; /* Navbar linklarini kichik ekranlarda o'rash */
+        justify-content: center;
+        margin-top: 5px;
     }
 
     .nav-links a, .nav-links select {
-        font-size: 14px;
+        font-size: 13px;
+        padding: 5px;
+    }
+
+    .hero {
+        padding: 30px 10px;
+        margin: 10px;
     }
 
     .hero h2 {
         font-size: 24px;
     }
 
+    .hero p {
+        font-size: 15px;
+    }
+
+    /* SLIDER MUAMMOSINI HAL QILISH (eng kichik ekranlar uchun) */
     .slider {
-        height: 200px;
+        width: 100%; /* To'liq kenglik */
+        height: 180px; /* Balandlikni yanada kamaytirish */
+        margin: 0 auto 10px;
     }
 
     .slide img {
-        height: 200px;
+        height: 180px; /* Rasm balandligini moslash */
+        object-fit: contain; /* Rasmni butunligicha ko'rsatish */
+        background-color: #f0f2f5;
     }
 
     .level-card {
-        width: 150px;
+        width: 90%; /* Mobil ekranlarda kartalarni yanada kengaytirish */
+        max-width: 200px;
+        padding: 12px;
+    }
+
+    .features {
+        grid-template-columns: 1fr; /* Bitta ustunga o'tish */
+        padding: 10px;
+    }
+
+    .feature-card {
+        padding: 15px;
+    }
+
+    .feature-card h3 {
+        font-size: 18px;
+    }
+
+    .feature-card p {
+        font-size: 14px;
+    }
+
+    .cta-button {
+        padding: 8px 15px;
+        font-size: 14px;
+    }
+
+    /* FOOTER VA CHAT BOX (mobil uchun) */
+    footer {
+        padding: 10px;
+        font-size: 0.8em;
+    }
+
+    .contact_admin {
+        bottom: 4em; /* Footer balandligiga moslash */
+        right: 1em;
+    }
+
+    .contact_admin img {
+        width: 45px;
+    }
+
+    .report-box {
+        width: 55%; /* Mobil ekranlarda chat boxni deyarli to'liq kenglikka qilish */
+        height: 70vh; /* Ekran balandligining foizi */
+        top: 75px;
+        right: 2.5%; /* Markazga yaqinroq joylash */
+        margin-left: auto;
+        margin-right: auto;
+        padding-bottom: 60px; /* Pastki input uchun joy */
+        z-index: 1001; /* Navbar va boshqalardan balandroq bo'lishi uchun */
+    }
+    /* Xabar qutilarini moslash */
+    .user-box, .admin-box {
+        width: 90%; /* Xabarlar kengligini moslash */
+        margin: 4px auto; /* Markazga joylash */
+    }
+
+
+    .textUser {
+        width: 55%; /* Textarea joylashuvini moslash */
+        right: 2.5%; /* Markazga yaqinroq joylash */
+        margin-left: auto;
+        margin-right: auto;
+        background-color: #333;
+    }
+
+    .textUser textarea {
+        height: 40px;
+        padding: 6px;
+        font-size: 17px;
+        padding: 5px;
+    }
+
+    .fontasmClick {
+        font-size: 16px;
+        margin-top: 12px;
+    }
+}
+
+/* Landshaft yo'nalishdagi mobil qurilmalar uchun qo'shimcha sozlama */
+@media (max-width: 800px) and (orientation: landscape) {
+    .slider {
+        height: 200px; /* Landshaft rejimda slider balandligini moslash */
+    }
+    .slide img {
+        height: 200px;
+    }
+    .level-select {
+        flex-direction: row; /* Landshaftda qayta qatorga joylash */
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+    .level-card {
+        width: 150px; /* Qaytadan kichikroq qilish */
+    }
+    .features {
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); /* 2-3 ustun qilish */
     }
 }

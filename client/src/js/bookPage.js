@@ -38,6 +38,7 @@ document.addEventListener("DOMContentLoaded", async () => {
   const bookId = localStorage.getItem("bookId");
   const pastError = document.getElementById("pastError");
   const addScorWord = document.querySelector('.addScorWord');
+  const audioUrl = document.querySelector('.audioUrl');
 
   function createWords(data, img, bookname, pageId) {
     let currentText = data.page;
@@ -45,6 +46,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     bookImg.src = img;
     pageNumber.textContent = `Page: ${data.page_order}`;
     bookName.textContent = bookname;
+    audioUrl.src = data.audio_url
 
     // Sahifa matnini harflarga bo‘lib ko‘rsatish
     function displayText(text) {
@@ -74,6 +76,7 @@ document.addEventListener("DOMContentLoaded", async () => {
         }
       });
 
+      console.log(currentText.length, inputText.length)
       // Agar to‘g‘ri yozilgan bo‘lsa, backendga saqlash
       if (isCorrect && inputText.length === currentText.length) {
         const countdown = setInterval(() => {
@@ -93,6 +96,7 @@ document.addEventListener("DOMContentLoaded", async () => {
         await customAxios
           .post("/pages/getNewPage", { pageId: pageId, bookId: bookId })
           .then((res) => {
+            console.log(res.data)
             if (res.data.message.startsWith("The")) {
               alert(res.data.message);
             }

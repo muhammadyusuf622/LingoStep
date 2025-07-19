@@ -51,7 +51,7 @@ export class QuizQuiestionController {
 
           const isValidImage =
             fieldName === 'image' &&
-            ['image/jpeg', 'image/png', 'image/avif'].includes(mime);
+            ['image/jpeg', 'image/png', 'image/avif', 'image/webp'].includes(mime);
           const isValidAudio =
             fieldName === 'audio' &&
             ['audio/mpeg', 'audio/mp3', 'audio/wav'].includes(mime);

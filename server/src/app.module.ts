@@ -6,7 +6,7 @@ import { AuthModule } from './modules/auth/auth.module';
 import * as path from 'path';
 import { APP_GUARD } from '@nestjs/core';
 import { CheckAuthGuard, CheckRoleGuard } from './guards';
-import { BotModule, ChatModule } from './modules';
+import { AdminMessageModule, BotModule, ChatModule, VideoChatModule } from './modules';
 import { BooksModule } from './modules/books/books.module';
 import { PagesModule } from './modules/pages/pages.module';
 import { TelegrafModule } from 'nestjs-telegraf';
@@ -47,6 +47,10 @@ import { QuizQuiestionModule } from './modules/quiz-quiestion/quiz-quiestion.mod
     QuizModule,
 
     QuizQuiestionModule,
+
+    AdminMessageModule,
+
+    VideoChatModule,
 
   ],
 

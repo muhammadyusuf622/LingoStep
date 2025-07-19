@@ -6,8 +6,6 @@ import {
 } from '@nestjs/websockets';
 import { Server } from 'socket.io';
 import { ChatService } from './chat.service';
-import { Req } from '@nestjs/common';
-import { Request } from 'express';
 import { Protected, Roles } from 'src/decaratores';
 import { UserRoles } from '@prisma/client';
 import { IntMessage } from './interface';

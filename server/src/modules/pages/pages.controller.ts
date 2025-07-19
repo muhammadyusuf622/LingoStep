@@ -36,7 +36,7 @@ export class PagesController {
   @Roles([UserRoles.ADMIN, UserRoles.SUPPER_ADMIN])
   @UseInterceptors(
     FileInterceptor('audio', {
-      limits: { fileSize: 20 * 1024 * 1024 },
+      limits: { fileSize: 100 * 1024 * 1024 },
       fileFilter: (req, file, cb) => {
         if (!file.mimetype.match(/^audio\/(mp3|mpeg|wav)$/)) {
           return cb(

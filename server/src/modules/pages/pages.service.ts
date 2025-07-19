@@ -186,7 +186,11 @@ export class PagesService {
         page_order: foundSavedPage.saved_page_order,
       },
     });
+    if(!foundPage){
+      throw new NotFoundException('page not Found');
+    }
 
+    foundPage.audio_url = process.env.BACKEND_URL as string + foundPage.audio_url
     return {
       message: 'success',
       data: foundPage,

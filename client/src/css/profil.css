@@ -88,10 +88,7 @@ body {
 }
 
 .upload-avatar {
-    /* padding: 8px 16px; */
-    /* color: white; */
     border: none;
-    /* border-radius: 4px; */
     cursor: pointer;
     background-color: white;
 }
@@ -101,7 +98,7 @@ body {
   color: #ff0000;
   position: absolute;
   top: 10.2em;
-  left: 10.8em;
+  left: 13.9em;
 }
 
 

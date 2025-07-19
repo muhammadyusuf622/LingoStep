@@ -95,7 +95,3 @@ document.addEventListener("DOMContentLoaded", async () => {
     .catch((err) => console.log(err.response.data.message));
 });
 
-/* <video controls width="640" height="360">
-<source src="https://www.w3schools.com/html/mov_bbb.mp4">
- Sizning brauzeringiz videoni qo‘llab-quvvatlamaydi.
-</video> */

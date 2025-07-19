@@ -193,10 +193,10 @@ export class QuizQuiestionService {
         (process.env.BACKEND_URL as string) + foundQuestion.img_url;
     } else if (foundQuestion.video_url) {
       foundQuestion.video_url =
-        (process.env.BACKEND_URL as string) + foundQuestion.img_url;
+        (process.env.BACKEND_URL as string) + foundQuestion.video_url;
     } else if (foundQuestion.audio_url) {
       foundQuestion.audio_url =
-        (process.env.BACKEND_URL as string) + foundQuestion.img_url;
+        (process.env.BACKEND_URL as string) + foundQuestion.audio_url;
     }
 
     return {
