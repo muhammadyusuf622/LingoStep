@@ -165,6 +165,7 @@ document.addEventListener("DOMContentLoaded", async () => {
   hangupBtn.addEventListener("click", hangup);
 
   socket.on("answerUserHangup", (str) => {
+    console.log(str, "keldi va ishladi")
     if (peerConnection) {
       peerConnection.close();
       peerConnection = null;
