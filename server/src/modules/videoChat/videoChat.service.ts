@@ -23,7 +23,6 @@ export class VideoChatService {
     this.user = user;
 
     socket.on('disconnect', (reason) => {
-
       const deleteConnected = this.connectedSockets.findIndex(
         (s) => s.socketId === socket.id,
       );
@@ -60,9 +59,20 @@ export class VideoChatService {
   }
 
   async newOffer(newOffer: any) {
+
+    let imgUrl: any;
+
+    if (this.user?.imgUrl?.startsWith('https://cdn-icons-png')) {
+      imgUrl = this.user.imgUrl;
+    } else if (this.user?.imgUrl) {
+      imgUrl = process.env.BACKEND_URL + this.user.imgUrl;
+    } else {
+      imgUrl = "https://cdn-icons-png.freepik.com/256/18238/18238419.png";   
+    }
+
     this.offers.push({
       offererUsername: this.user.username,
-      offerImgUrl: this.user.imgUrl,
+      offerImgUrl: imgUrl,
       offer: newOffer,
       offerIceCandidates: [],
       answererUsername: null,
