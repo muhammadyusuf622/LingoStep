@@ -35,6 +35,7 @@ document.addEventListener("DOMContentLoaded", () => {
   customAxios
     .get("/auth/getUserById")
     .then((res) => {
+      console.log(res)
       username = res.data.data.username;
       userId = res.data.data.id;
       customAxios

@@ -235,6 +235,11 @@ body {
     background-color: #c0392b;
 }
 
+.none-available{
+    text-align: center;
+    font-size: 30px;
+}
+
 /* Responsivlik */
 @media (max-width: 992px) {
     .video-chat-container {

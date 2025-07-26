@@ -48,6 +48,8 @@ body {
 }
 
 .form-wrapper {
+  height: 700px;
+  width: 400px;
   background-color: rgba(255, 255, 255, 0.4);
   backdrop-filter: blur(10px);
   -webkit-backdrop-filter: blur(10px);

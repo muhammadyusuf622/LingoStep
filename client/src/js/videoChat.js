@@ -16,12 +16,14 @@ async function soketIoFn() {
 
   return socket;
 }
+let pendingCandidates = [];
 
 let socket;
 const userList = document.querySelector("#userList");
 const localVideoEl = document.querySelector("#local-video");
 const remoteVideoEl = document.querySelector("#remote-video");
 const hangupBtn = document.querySelector("#hangup");
+const noneAvailable = document.querySelector(".none-available");
 
 let localStream;
 let remoteStream;
@@ -38,6 +40,22 @@ let peerConfiguretion = {
 
 document.addEventListener("DOMContentLoaded", async () => {
   socket = await soketIoFn();
+
+  const observer = new MutationObserver(() => {
+    if (userList.children.length === 0) {
+      noneAvailable.textContent = "None available";
+    } else {
+      noneAvailable.textContent = "";
+    }
+  });
+
+  observer.observe(userList, {
+    childList: true,
+  });
+
+  if (userList.children.length === 0) {
+    noneAvailable.textContent = "None available";
+  }
 
   const call = async (e) => {
     await fetchUserMedia();
@@ -71,13 +89,35 @@ document.addEventListener("DOMContentLoaded", async () => {
     });
   };
 
-  const addAnswer = async (offerObj) => {
-    await peerConnection.setRemoteDescription(offerObj.answer);
-    const divs = userList.querySelectorAll("div");
-    divs.forEach((div) => {
-      div.remove();
+const addAnswer = async (offerObj) => {
+  if (!peerConnection) return;
+
+  // Bu tekshiruvni olib tashlang yoki pastroqqa o‘tkazing
+  if (!peerConnection.currentRemoteDescription) {
+    try {
+      await peerConnection.setRemoteDescription(offerObj.answer);
+    } catch (error) {
+      console.error("setRemoteDescription xatoligi:", error);
+      return;
+    }
+  }
+
+  if (pendingCandidates.length > 0) {
+    pendingCandidates.forEach(async (c) => {
+      try {
+        await peerConnection.addIceCandidate(c);
+      } catch (err) {
+        console.error("Buffered ICE qo‘shishda xato:", err);
+      }
     });
-  };
+    pendingCandidates = [];
+  }
+
+  // UI tozalash
+  const divs = userList.querySelectorAll("div");
+  divs.forEach((div) => div.remove());
+};
+
 
   const createPeerConnection = (offerObj) => {
     return new Promise(async (resolve, reject) => {
@@ -131,9 +171,23 @@ document.addEventListener("DOMContentLoaded", async () => {
     });
   };
 
-  const addNewIceCandidate = (iceCandidate) => {
-    peerConnection.addIceCandidate(iceCandidate);
-  };
+const addNewIceCandidate = async (iceCandidate) => {
+  if (!peerConnection) return;
+
+  if (!peerConnection.remoteDescription) {
+    // Qo‘yilmagan bo‘lsa, vaqtincha saqlaymiz
+    pendingCandidates.push(iceCandidate);
+    return;
+  }
+
+  try {
+    await peerConnection.addIceCandidate(iceCandidate);
+  } catch (error) {
+    console.error("ICE qo‘shishda xato:", error);
+  }
+};
+
+
 
   document.querySelector("#call").addEventListener("click", call);
 
@@ -165,7 +219,7 @@ document.addEventListener("DOMContentLoaded", async () => {
   hangupBtn.addEventListener("click", hangup);
 
   socket.on("answerUserHangup", (str) => {
-    console.log(str, "keldi va ishladi")
+    console.log(str, "keldi va ishladi");
     if (peerConnection) {
       peerConnection.close();
       peerConnection = null;
@@ -222,5 +276,4 @@ document.addEventListener("DOMContentLoaded", async () => {
       userList.appendChild(newOfferEl);
     });
   }
-
 });
