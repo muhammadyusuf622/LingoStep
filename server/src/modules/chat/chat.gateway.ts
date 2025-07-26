@@ -22,7 +22,7 @@ export class EventsGateway {
   constructor(private readonly service: ChatService) {}
 
   @SubscribeMessage('events')
-  @Protected(true)
+  @Protected(false)
   @Roles([UserRoles.USER, UserRoles.ADMIN, UserRoles.SUPPER_ADMIN])
   async hearingEvents(@MessageBody() data: IntMessage) {
     return await this.service.hearingEvents(data, this.server);

@@ -20,13 +20,17 @@ async function bootstrap() {
 
 
   app.useGlobalFilters(new AllExceptionsFilters())
+
   app.useGlobalPipes(
     new ValidationPipe({
+      transform: true,
       whitelist: true,
       forbidNonWhitelisted: true,
-      transform: true
+      transformOptions: {
+        enableImplicitConversion: true
+      }
     })
-  )
+  );
 
     const config = new DocumentBuilder()
   .setTitle('example croud')

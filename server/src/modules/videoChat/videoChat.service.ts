@@ -1,4 +1,5 @@
-import { Injectable } from '@nestjs/common';
+import { BadGatewayException, Injectable } from '@nestjs/common';
+import { WsException } from '@nestjs/websockets';
 import { Server, Socket } from 'socket.io';
 import { PrismaService } from 'src/prisma';
 
@@ -14,47 +15,56 @@ export class VideoChatService {
   }
 
   async handleConnection(socket: Socket) {
-    const password = socket.handshake.auth.password;
-    const userId = socket.handshake.auth.userId;
-    this.socket = socket;
 
-    const user = await this.prisma.user.findUnique({ where: { id: userId } });
+    try {
+        const password = socket.handshake.auth.password;
+        const userId = socket.handshake.auth.userId;
+        this.socket = socket;
 
-    this.user = user;
 
-    socket.on('disconnect', (reason) => {
-      const deleteConnected = this.connectedSockets.findIndex(
-        (s) => s.socketId === socket.id,
-      );
+        const user = await this.prisma.user.findUnique({
+          where: { id: userId },
+        });
 
-      if (deleteConnected !== -1) {
-        this.connectedSockets.splice(deleteConnected, 1);
-      }
 
-      const deleteOffer = this.offers.findIndex(
-        (of) => of.socketId === socket.id,
-      );
+        this.user = user;
 
-      if (deleteOffer !== -1) {
-        this.offers.splice(deleteOffer, 1);
-      }
+        socket.on('disconnect', (reason) => {
+          const deleteConnected = this.connectedSockets.findIndex(
+            (s) => s.socketId === socket.id,
+          );
 
-      socket.broadcast.emit('disconnectOffers', user?.username);
-    });
+          if (deleteConnected !== -1) {
+            this.connectedSockets.splice(deleteConnected, 1);
+          }
 
-    if (password !== 'xsalom') {
-      socket.disconnect(true);
-      return;
-    }
+          const deleteOffer = this.offers.findIndex(
+            (of) => of.socketId === socket.id,
+          );
 
-    this.connectedSockets.push({
-      socketId: socket.id,
-      username: user?.username,
-    });
+          if (deleteOffer !== -1) {
+            this.offers.splice(deleteOffer, 1);
+          }
 
-    if (this.offers.length) {
-      const newOffers = this.offers.filter((of) => !of.answererUsername);
-      socket.emit('availableOffers', newOffers);
+          socket.broadcast.emit('disconnectOffers', user?.username);
+        });
+
+        if (password !== 'xsalom') {
+          socket.disconnect(true);
+          return;
+        }
+
+        this.connectedSockets.push({
+          socketId: socket.id,
+          username: user?.username,
+        });
+
+        if (this.offers.length) {
+          const newOffers = this.offers.filter((of) => !of.answererUsername);
+          socket.emit('availableOffers', newOffers);
+        }
+    } catch (error) {
+      console.log(error?.message)
     }
   }
 

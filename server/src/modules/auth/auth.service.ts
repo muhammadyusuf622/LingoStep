@@ -295,6 +295,7 @@ export class AuthService implements OnModuleInit {
       throw new BadRequestException('Id Error Format');
     }
 
+
     const user = await this.prisma.user.findUnique({
       where: { id: req?.userId },
     });

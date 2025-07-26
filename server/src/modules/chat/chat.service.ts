@@ -12,26 +12,40 @@ export class ChatService {
 
   async hearingEvents(data: IntMessage, soket: Server){
 
-    if(!isUUID(data.userId)){
-      throw new BadRequestException('Bad Request');
+    try {
+          if (!isUUID(data?.userId)) {
+            throw new BadRequestException('Bad Request');
+          }
+
+          const foundUser = await this.prisma.user.findFirst({
+            where: { id: data.userId },
+          });
+
+          const newMessage = await this.prisma.chat.create({
+            data: {
+              username: foundUser?.username as string,
+              message: data.message,
+            },
+          });
+
+          const date = new Date(newMessage.createdAt);
+          const formatted = date.toLocaleString('uz-UZ');
+
+          const user = {
+            userId: foundUser?.id,
+            username: newMessage.username,
+            message: newMessage.message,
+            createAt: formatted,
+          };
+          soket.emit('events', user);
+
+          return { message: 'success' };
+    } catch (error) {
+          soket.emit('error', {
+            message: error?.message || 'Something went wrong',
+          });
+          return;
     }
-
-    const foundUser = await this.prisma.user.findFirst({where: {id: data.userId}})
-    
-    const newMessage = await this.prisma.chat.create({data: {username: foundUser?.username as string, message: data.message}});
-
-    const date = new Date(newMessage.createdAt);
-    const formatted = date.toLocaleString('uz-UZ')
-
-    const user = {
-      userId: foundUser?.id,
-      username: newMessage.username,
-      message: newMessage.message,
-      createAt: formatted
-    }
-    soket.emit('events', user)
-
-    return {message: "success"};
   }
 
   async getAllMessage(){
