@@ -435,10 +435,6 @@ textarea:focus {
         margin: 0 auto 15px;
     }
 
-    .slides {
-        /* Bu yerda o'zgarish yo'q, chunki transform JS orqali boshqariladi */
-    }
-
     .slide img {
         height: 250px; /* Rasm balandligini slider balandligiga moslash */
         object-fit: contain; /* Rasmni butunligicha ko'rsatish, tashqariga chiqmasligi uchun */
