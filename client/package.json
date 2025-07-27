@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "description": "",
   "scripts": {
-    "start": "parcel src/index.html src/pages/*.html --port 4000",
+    "start": "parcel src/index.html src/pages/*.html --port 7001",
     "build": "parcel build src/index.html src/pages/*.html"
   },
   "keywords": [],

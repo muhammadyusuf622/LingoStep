@@ -60,6 +60,7 @@ document.addEventListener("DOMContentLoaded", async () => {
   const call = async (e) => {
     await fetchUserMedia();
     await createPeerConnection();
+
     try {
       const offer = await peerConnection.createOffer();
       peerConnection.setLocalDescription(offer);
@@ -73,6 +74,9 @@ document.addEventListener("DOMContentLoaded", async () => {
   const answerOffer = async (offerObj) => {
     await fetchUserMedia();
     await createPeerConnection(offerObj);
+
+    userList.style.display = "none";
+    
     const answer = await peerConnection.createAnswer({});
     await peerConnection.setLocalDescription(answer);
 
@@ -92,7 +96,6 @@ document.addEventListener("DOMContentLoaded", async () => {
 const addAnswer = async (offerObj) => {
   if (!peerConnection) return;
 
-  // Bu tekshiruvni olib tashlang yoki pastroqqa o‘tkazing
   if (!peerConnection.currentRemoteDescription) {
     try {
       await peerConnection.setRemoteDescription(offerObj.answer);
@@ -160,6 +163,7 @@ const addAnswer = async (offerObj) => {
       try {
         const stream = await navigator.mediaDevices.getUserMedia({
           video: true,
+          audio: true,
         });
 
         localVideoEl.srcObject = stream;
@@ -183,7 +187,7 @@ const addNewIceCandidate = async (iceCandidate) => {
   try {
     await peerConnection.addIceCandidate(iceCandidate);
   } catch (error) {
-    console.error("ICE qo‘shishda xato:", error);
+    console.error("ICE qo'shishda xato:", error);
   }
 };
 
@@ -211,6 +215,8 @@ const addNewIceCandidate = async (iceCandidate) => {
     localStream = null;
     didOfer = false;
 
+    userList.style.display = "block";
+
     socket.emit("hungUpPhone", { username: userData.username });
 
     console.log("Connection has been closed");
@@ -223,6 +229,7 @@ const addNewIceCandidate = async (iceCandidate) => {
     if (peerConnection) {
       peerConnection.close();
       peerConnection = null;
+      userList.style.display = "block";
     }
 
     if (remoteVideoEl.srcObject) {

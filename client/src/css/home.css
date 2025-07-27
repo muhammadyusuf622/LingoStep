@@ -55,6 +55,35 @@ body {
     cursor: pointer;
 }
 
+.navbar-img-box {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 4px 8px;
+  border-radius: 12px;
+  height: 68px; /* navbar balandligiga moslang */
+  transition: all 0.3s ease;
+}
+
+.navbar-img-box img {
+  height: 100%;
+  max-height: 100%;
+  object-fit: contain;
+  display: block;
+  transition: transform 0.3s ease;
+}
+
+.navbar-img-box:hover img {
+  transform: scale(1.05); /* Hover effekt */
+}
+
+.nav-title{
+ display: flex;
+ align-items: center;
+}
+
+ /* Navbar end ////////////////////////// */
+
 #language-select{
     background: none;
     color: white;
